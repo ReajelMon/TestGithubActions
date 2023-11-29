@@ -25,12 +25,7 @@ jobs:
       run: npm install  # Assuming you have package.json with required dependencies
 
     - name: Build Extension
-      run: |
-        # Run npm pack with the desired output directory
-        npm pack --output-path ../
-
-        # Display the contents of the output directory for verification
-        ls -R ../
+      run: tfx extension create --manifest-globs vss-extension.json
 
     - name: Commit and Push Changes
       run: |
