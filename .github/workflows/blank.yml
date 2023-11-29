@@ -1,44 +1,36 @@
-name: Increment Version
+name: Build and Publish Extension
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  increment_version:
+  build_and_publish_extension:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Install jq
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install -y jq
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
 
-    - name: Get Current Version
-      id: get_version
-      run: echo "::set-output name=version::$(jq -r '.version' vss-extension.json)"
+    - name: Install tfx-cli
+      run: npm install -g tfx-cli
 
-    - name: Increment Version
-      run: |
-        # Increment the version number using awk
-        incremented_version=$(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}')
+    - name: Install Dependencies
+      run: npm install  # Assuming you have package.json with required dependencies
 
-        # Use jq to update the 'version' property in vss-extension.json
-        jq --arg incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json > vss-extension-modified.json
-
-        # Move the modified file back to the original filename
-        mv vss-extension-modified.json vss-extension.json
-
-        # Display the modified file for verification
-        cat vss-extension.json
+    - name: Build Extension
+      run: tfx extension create --manifest-globs vss-extension.json
 
     - name: Commit and Push Changes
       run: |
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
-        git add vss-extension.json
-        git commit -m "Increment version in vss-extension.json"
+        git add .
+        git commit -m "Build and publish extension"
         git push origin main
