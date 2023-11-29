@@ -1,11 +1,11 @@
-name: Modify Version
+name: Increment Version
 
 on:
   push:
     branches: [main]
 
 jobs:
-  modify_version:
+  increment_version:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,10 +17,17 @@ jobs:
         sudo apt-get update -y
         sudo apt-get install -y jq
 
-    - name: Modify Version
+    - name: Get Current Version
+      id: get_version
+      run: echo "::set-output name=version::$(jq -r '.version' vss-extension.json)"
+
+    - name: Increment Version
       run: |
+        # Increment the version number
+        incremented_version=$(( $(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}') ))
+
         # Use jq to update the 'version' property in vss-extension.json
-        jq '.version = "1.1.0"' vss-extension.json > vss-extension-modified.json
+        jq --argjson incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json > vss-extension-modified.json
 
         # Move the modified file back to the original filename
         mv vss-extension-modified.json vss-extension.json
@@ -33,5 +40,5 @@ jobs:
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
         git add vss-extension.json
-        git commit -m "Update version in vss-extension.json"
-        git push
+        git commit -m "Increment version in vss-extension.json"
+        git push origin main
