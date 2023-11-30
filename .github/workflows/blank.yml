@@ -76,5 +76,5 @@ jobs:
       with:
         pat: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
         registryUrl: https://marketplace.visualstudio.com
-        extensionFile: vss-extension.json
+        extensionFile: MontaMdUpdate.AzureDevOpsWikiToDocFx-dev-test-1.1.10.vsix
 
