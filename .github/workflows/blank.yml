@@ -27,14 +27,16 @@ jobs:
         node-version: '14'
 
     - name: Install tfx-cli
-      run: npm install -g tfx-cli
-          git add .
+      run: |
+        npm install -g tfx-cli
+        git add .
       working-directory: ${{ github.workspace }}
 
 
     - name: Build Extension
-      run: tfx extension create --manifest-globs vss-extension.json --output-path ./actions/checkout@v3
-           git add .
+      run: |
+        tfx extension create --manifest-globs vss-extension.json --output-path ./actions/checkout@v3
+        git add .
       working-directory: ${{ github.workspace }}
 
 
