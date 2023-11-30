@@ -13,8 +13,29 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Print Workspace Path
-      run: echo "${{ github.workspace }}"
+    - name: Install jq
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y jq
+
+    - name: Get Current Version
+      id: get_version
+      run: echo "::set-output name=version::$(jq -r '.version' vss-extension.json)"
+
+    - name: Increment Version
+      run: |
+        # Increment the version number
+        incremented_version=$(( $(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}') ))
+
+        # Use jq to update the 'version' property in vss-extension.json
+        jq --argjson incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json > vss-extension-modified.json
+
+        # Move the modified file back to the original filename
+        mv vss-extension-modified.json vss-extension.json
+
+        # Display the modified file for verification
+        cat vss-extension.json
+
       
     - name: set config
       run: |
