@@ -12,9 +12,20 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16
+
+          
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+  
+      - name: Install tfx-cli
+        run: npm install -g tfx-cli
+  
       - name: Install Dependencies
         run: npm install  # Assuming you have package.json with required dependencies
-        working-directory: ${{ github.workspace }}
+
+        
       - run: npm ci
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
