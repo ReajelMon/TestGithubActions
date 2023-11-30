@@ -25,7 +25,7 @@ jobs:
       run: npm install  # Assuming you have package.json with required dependencies
 
     - name: Build Extension
-      run: tfx extension create --manifest-globs vss-extension.json --output-path ./actions/checkout@v3
+      run: tfx extension create --manifest-globs vss-extension.json
 
     - name: Commit and Push Changes
       run: |
