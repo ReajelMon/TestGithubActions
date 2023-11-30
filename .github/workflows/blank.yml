@@ -46,6 +46,6 @@ jobs:
 
       - name: Publish to Marketplace
         env:
-          VSCE_TOKEN: vo62xddgvbtdh3l6vydbbxxswrsdtmoqcchjiuc3tvcj6bvn2yoq
+          VSCE_TOKEN: vqltvg6pi3d4knnqebhteoma53fkkcexsi3fvulig4yijm5qqylaq
         run: |
-          npx vsce publish -p vo62xddgvbtdh3l6vydbbxxswrsdtmoqcchjiuc3tvcj6bvn2yoq
+          npx vsce publish -p $VSCE_TOKEN
