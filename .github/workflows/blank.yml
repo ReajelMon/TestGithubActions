@@ -46,6 +46,6 @@ jobs:
 
       - name: Publish to Marketplace
         env:
-          VSCE_TOKEN: ${{ secrets.YOUR_SECRET_NAME }}
+          VSCE_TOKEN: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
         run: |
           npx vsce publish -p $VSCE_TOKEN
