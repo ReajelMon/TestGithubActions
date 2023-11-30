@@ -25,7 +25,15 @@ jobs:
       - name: Install Dependencies
         run: npm install  # Assuming you have package.json with required dependencies
 
-        
+      - name: GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+          body: |
+          name: ${{ github.ref_name }}
+          fail_on_unmatched_files: true
+          files: ${{ needs.build-lint-test.outputs.vsixPath }}
+          
       - run: npm install
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
