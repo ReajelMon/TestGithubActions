@@ -76,5 +76,5 @@ jobs:
       with:
         pat: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
         registryUrl: https://marketplace.visualstudio.com
-        extensionFile: ${{ steps.publishToOpenVSX.outputs.vsixPath }}
+        extensionFile: ${{ github.workspace }}
             
