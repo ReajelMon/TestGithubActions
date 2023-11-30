@@ -24,16 +24,9 @@ jobs:
 
     - name: Increment Version
       run: |
-        # Increment the version number using awk
         incremented_version=$(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}')
-
-        # Use jq to update the 'version' property in vss-extension.json
         jq --arg incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json > vss-extension-modified.json
-
-        # Move the modified file back to the original filename
         mv vss-extension-modified.json vss-extension.json
-
-        # Display the modified file for verification
         cat vss-extension.json
 
       
