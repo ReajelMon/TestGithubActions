@@ -61,9 +61,13 @@ jobs:
         
       working-directory: ${{ github.workspace }}
 
-    - name: List Extension Output Directory
-      run: ls -R /home/runner/work/TestGithubActions/TestGithubActions
+    - name: Build extension
+      run: npm run build
 
+    - name: Publish to Marketplace
+      env:
+        VSCE_TOKEN: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
+      run: npx vsce publish -p $VSCE_TOKEN
 
     - name: Commit and Push Changes
       run: |
@@ -71,10 +75,4 @@ jobs:
         git commit -m "Build and publish extension"
         git push origin main
       working-directory: ${{ github.workspace }}
-    - name: Publish VS Code Extension
-      uses: HaaLeo/publish-vscode-extension@v1.5.0      
-      with:
-        pat: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
-        registryUrl: https://marketplace.visualstudio.com
-        extensionFile: MontaMdUpdate.AzureDevOpsWikiToDocFx-dev-test-1.1.10.vsix
 
