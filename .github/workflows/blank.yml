@@ -17,18 +17,21 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '14'
-
-    - name: Change to Working Directory
-      run: cd /home/runner/work/TestGithubActions
+        
 
     - name: Install tfx-cli
       run: npm install -g tfx-cli
+      working-directory: /home/runner/work/TestGithubActions
+
 
     - name: Install Dependencies
       run: npm install  # Assuming you have package.json with required dependencies
+      working-directory: /home/runner/work/TestGithubActions
+
 
     - name: Build Extension
       run: tfx extension create --manifest-globs vss-extension.json
+      working-directory: /home/runner/work/TestGithubActions
 
     - name: Commit and Push Changes
       run: |
