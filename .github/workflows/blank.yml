@@ -10,66 +10,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    - name: Install jq
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install -y jq
+      - name: Install jq
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq
 
-    - name: Get Current Version
-      id: get_version
-      run: echo "::set-output name=version::$(jq -r '.version' vss-extension.json)"
+      - name: Get Current Version
+        id: get_version
+        run: echo "::set-output name=version::$(jq -r '.version' vss-extension.json)"
 
-    - name: Increment Version
-      run: |
-        incremented_version=$(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}')
-        jq --arg incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json > vss-extension-modified.json
-        mv vss-extension-modified.json vss-extension.json
-        cat vss-extension.json
+      - name: Increment Version
+        run: |
+          incremented_version=$(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}')
+          jq --arg incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json > vss-extension-modified.json
+          mv vss-extension-modified.json vss-extension.json
+          cat vss-extension.json
 
-      
-    - name: set config
-      run: |
-        git config user.name "${{ github.actor }}"
-        git config user.email "${{ github.actor }}@users.noreply.github.com"
-        
-    - name: List Repository Files
-      run: ls -R
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
 
-    - name: Print Workspace Path
-      run: echo "${{ github.workspace }}"
-      
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '14'
+      - name: Install tfx-cli
+        run: |
+          npm install -g tfx-cli
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+          
+      - name: Build Extension
+        run: |
+          tfx extension create --manifest-globs vss-extension.json --output-path ${{ github.workspace }}
 
-    - name: Install tfx-cli
-      run: |
-        npm install -g tfx-cli
-        git add .
-      working-directory: ${{ github.workspace }}
+      - name: Publish to Marketplace
+        env:
+          VSCE_TOKEN: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
+        run: |
+          npx vsce publish -p $VSCE_TOKEN
 
-    - name: Print Workspace Path
-      run: echo "${{ github.workspace }}"
-
-    - name: Build Extension
-      run: |
-        tfx extension create --manifest-globs vss-extension.json --output-path ${{ github.workspace }}
-        
-      working-directory: ${{ github.workspace }}
-
-    - name: Publish to Marketplace
-      env:
-        VSCE_TOKEN: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
-      run: npx vsce publish -p $VSCE_TOKEN
-
-    - name: Commit and Push Changes
-      run: |
-        git add .
-        git commit -m "Build and publish extension"
-        git push origin main
-      working-directory: ${{ github.workspace }}
-
+      - name: Commit and Push Changes
+        run: |
+          git add .
+          git commit -m "Build and publish extension"
+          git push origin main
