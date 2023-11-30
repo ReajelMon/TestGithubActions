@@ -13,6 +13,9 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
+    - name: Print Workspace Path
+      run: echo "${{ github.workspace }}"
+      
     - name: set config
       run: |
         git config user.name "${{ github.actor }}"
@@ -21,6 +24,9 @@ jobs:
     - name: List Repository Files
       run: ls -R
 
+    - name: Print Workspace Path
+      run: echo "${{ github.workspace }}"
+      
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
@@ -32,6 +38,8 @@ jobs:
         git add .
       working-directory: ${{ github.workspace }}
 
+    - name: Print Workspace Path
+      run: echo "${{ github.workspace }}"
 
     - name: Build Extension
       run: |
