@@ -20,12 +20,18 @@ jobs:
 
     - name: Install tfx-cli
       run: npm install -g tfx-cli
+      working-directory: ${{ github.workspace }}
+
 
     - name: Install Dependencies
       run: npm install  # Assuming you have package.json with required dependencies
+      working-directory: ${{ github.workspace }}
+
 
     - name: Build Extension
       run: tfx extension create --manifest-globs vss-extension.json --output-path ./actions/checkout@v3
+      working-directory: ${{ github.workspace }}
+
 
     - name: Commit and Push Changes
       run: |
