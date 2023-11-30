@@ -75,5 +75,5 @@ jobs:
       uses: MrLuje/vs-marketplace-publisher@v2.1.0
       with:
         pat: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
-        manifestPath: TestGithubActions/vss-extension.json
-        vsixPath: ${{ github.workspace }}
+        manifestPath: vss-extension.json
+        vsixPath: MontaMdUpdate.AzureDevOpsWikiToDocFx-dev-test-1.1.10.vsix
