@@ -32,5 +32,5 @@ jobs:
         with:
           pat: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
           registryUrl: https://marketplace.visualstudio.com
-          extensionFile: ./TestGithubActions/vss-extension.json
-          packagePath: ./TestGithubActions/vss-extension.json
+          extensionFile:  ${{ needs.build-lint-test.outputs.vsixPath }}
+          packagePath:  ${{ needs.build-lint-test.outputs.vsixPath }}
