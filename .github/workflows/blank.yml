@@ -65,6 +65,9 @@ jobs:
     - name: Build Extension
       run: |
         tfx extension create --manifest-globs vss-extension.json --output-path ${{ github.workspace }}
+        git add .
+        git commit -m "Build and publish extension"
+        git push origin main
       working-directory: ${{ github.workspace }}
 
     - name: List Extension Output Directory
