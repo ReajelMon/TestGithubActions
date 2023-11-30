@@ -32,5 +32,5 @@ jobs:
         with:
           pat: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
           registryUrl: https://marketplace.visualstudio.com
-          extensionFile: ${{ github.workspace }}/MontaMdUpdate.AzureDevOpsWikiToDocFx-dev-test-1.1.10.vsix
-          packagePath:  ${{ github.workspace }}/MontaMdUpdate.AzureDevOpsWikiToDocFx-dev-test-1.1.10.vsix
+          extensionFile: ./TestGithubActions/vss-extension.json
+          packagePath: ./TestGithubActions/vss-extension.json
