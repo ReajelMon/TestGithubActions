@@ -42,7 +42,7 @@ jobs:
           
       - name: Build Extension
         run: |
-          tfx extension create --manifest-globs
+          tfx extension create --manifest-globs vss-extension.json
 
       - name: Publish to Marketplace
         env:
