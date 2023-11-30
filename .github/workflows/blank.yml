@@ -12,30 +12,25 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-        
+
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '14'
-        
 
     - name: Install tfx-cli
       run: npm install -g tfx-cli
-      working-directory: /home/runner/work/TestGithubActions
-
 
     - name: Install Dependencies
       run: npm install  # Assuming you have package.json with required dependencies
-      working-directory: /home/runner/work/TestGithubActions
-
 
     - name: Build Extension
+      run: tfx extension create --manifest-globs vss-extension.json --output-path ./actions/checkout@v3
+
+    - name: Commit and Push Changes
       run: |
-        tfx extension create --manifest-globs vss-extension.json
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
         git add .
         git commit -m "Build and publish extension"
         git push origin main
-      working-directory: /home/runner/work/TestGithubActions/TestGithubActions
-
