@@ -75,7 +75,7 @@ jobs:
       run: |
         tfx extension publish \
           --manifest-globs vss-extension.json \
-          --share-with Testrc \
-          --token zkwk67w2l46tnwfbrzsridgwovwyboohkzriga5r6x7nxqokb2oa
+          --share-with montamdupdate \
+          --token wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
       working-directory: ${{ github.workspace }}
   
