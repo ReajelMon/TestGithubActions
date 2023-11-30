@@ -71,8 +71,7 @@ jobs:
         git commit -m "Build and publish extension"
         git push origin main
       working-directory: ${{ github.workspace }}
-    - name: VS Marketplace Publisher
-      uses: MrLuje/vs-marketplace-publisher@v2.1.0
+    - name: Publish VS Code Extension
+      uses: HaaLeo/publish-vscode-extension@v1.5.0      
       with:
         pat: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
-        manifestPath: vss-extension.json
