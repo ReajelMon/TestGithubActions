@@ -35,8 +35,7 @@ jobs:
 
     - name: Build Extension
       run: |
-        tfx extension create --manifest-globs vss-extension.json --output-path ./actions/checkout@v3
-        git add .
+        tfx extension create --manifest-globs vss-extension.json --output-path ${{ github.workspace }}
       working-directory: ${{ github.workspace }}
 
 
