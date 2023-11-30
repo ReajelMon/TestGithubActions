@@ -67,6 +67,9 @@ jobs:
         tfx extension create --manifest-globs vss-extension.json --output-path ${{ github.workspace }}
       working-directory: ${{ github.workspace }}
 
+    - name: List Extension Output Directory
+      run: ls -R /home/runner/work/TestGithubActions/TestGithubActions
+
 
     - name: Commit and Push Changes
       run: |
