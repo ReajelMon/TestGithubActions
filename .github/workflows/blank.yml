@@ -20,14 +20,14 @@ jobs:
 
       - name: Get Current Version
         id: get_version
-        run: echo "::set-output name=version::$(jq -r '.version' vss-extension.json)"
+        run: echo "::set-output name=version::$(jq -r '.version' package.json)"
 
       - name: Increment Version
         run: |
           incremented_version=$(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}')
-          jq --arg incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json > vss-extension-modified.json
-          mv vss-extension-modified.json vss-extension.json
-          cat vss-extension.json
+          jq --arg incremented_version "$incremented_version" '.version = $incremented_version' package.json> package.json-modified.json
+          mv package.json-modified.json package.json
+          cat package.json
 
       - name: Install Node.js
         uses: actions/setup-node@v3
