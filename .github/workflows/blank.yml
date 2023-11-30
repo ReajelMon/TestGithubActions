@@ -70,12 +70,7 @@ jobs:
         git add .
         git commit -m "Build and publish extension"
         git push origin main
-
-    - name: Publish Extension to Visual Studio Marketplace
-      run: |
-        tfx extension publish \
-          --manifest-globs vss-extension.json \
-          --share-with montamdupdate \
-          --token wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
       working-directory: ${{ github.workspace }}
-  
+      
+    - name: Publish VS Code Extension
+      uses: HaaLeo/publish-vscode-extension@v1.5.0
