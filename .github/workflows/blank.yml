@@ -48,4 +48,4 @@ jobs:
         env:
           VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
         run: |
-          npx vsce publish -p $VSCE_TOKEN
+          tfx extension publish --token $VSCE_TOKEN
