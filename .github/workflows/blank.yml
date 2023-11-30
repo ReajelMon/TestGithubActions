@@ -36,15 +36,16 @@ jobs:
 
       - name: Install tfx-cli
         run: |
+          npm install -g tfx-cli
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global user.name "${{ github.actor }}"
           
       - name: Build Extension
         run: |
-          tfx extension create --manifest-globs vss-extension.json
-          
+          tfx extension create --manifest-globs
+
       - name: Publish to Marketplace
         env:
-          VSCE_TOKEN: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
+          VSCE_TOKEN: ${{ secrets.YOUR_SECRET_NAME }}
         run: |
           npx vsce publish -p $VSCE_TOKEN
