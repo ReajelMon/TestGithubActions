@@ -26,7 +26,7 @@ jobs:
         run: npm install  # Assuming you have package.json with required dependencies
 
         
-      - run: npm ci
+      - run: npm install
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         with:
