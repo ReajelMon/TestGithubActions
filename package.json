@@ -14,7 +14,7 @@
   },
   "description": "A task that generates a DocFX website out of your Azure DevOps wiki repository.",
   "categories": [
-    "Build and release"
+    "Plan and track"
   ],
   "icons": {
     "default": "icon.png"
