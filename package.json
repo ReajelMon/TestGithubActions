@@ -9,6 +9,9 @@
       "id": "Microsoft.VisualStudio.Services"
     }
   ],
+  "engines": {
+    "vscode": "^1.0.0"
+  },
   "description": "A task that generates a DocFX website out of your Azure DevOps wiki repository.",
   "categories": [
     "Azure Pipelines"
