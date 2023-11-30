@@ -42,16 +42,10 @@ jobs:
           
       - name: Build Extension
         run: |
-          tfx extension create --manifest-globs vss-extension.json --output-path ${{ github.workspace }}
-
+          tfx extension create --manifest-globs vss-extension.json
+          
       - name: Publish to Marketplace
         env:
-          VSCE_TOKEN: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
+          VSCE_TOKEN: ${{ secrets.YOUR_SECRET_NAME }}
         run: |
           npx vsce publish -p $VSCE_TOKEN
-
-      - name: Commit and Push Changes
-        run: |
-          git add .
-          git commit -m "Build and publish extension"
-          git push origin main
