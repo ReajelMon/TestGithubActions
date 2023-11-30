@@ -75,6 +75,5 @@ jobs:
       uses: MrLuje/vs-marketplace-publisher@v2.1.0
       with:
         pat: wldcm3wdhk4bljrzoou7w27sjsvdqgfkgigyq45f22suwlzpxksq
-        registryUrl: https://marketplace.visualstudio.com
-        extensionFile: ${{ github.workspace }}
-            
+        manifestPath: ${{ github.workspace }}
+        vsixPath: ${{ github.workspace }}
