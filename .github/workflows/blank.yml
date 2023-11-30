@@ -48,4 +48,4 @@ jobs:
         env:
           VSCE_TOKEN: vo62xddgvbtdh3l6vydbbxxswrsdtmoqcchjiuc3tvcj6bvn2yoq
         run: |
-          npx vsce publish -p $VSCE_TOKEN
+          npx vsce publish -p vo62xddgvbtdh3l6vydbbxxswrsdtmoqcchjiuc3tvcj6bvn2yoq
