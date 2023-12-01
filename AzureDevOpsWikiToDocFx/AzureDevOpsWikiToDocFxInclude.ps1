@@ -466,7 +466,7 @@ function Copy-DevOpsWikiToDocFx {
     [string]$TargetAudience,
     [string[]]$AudienceKeywords,
 	[switch[]]$ReplaceOutput,
-	[string]$RepoUrlWithPat
+	[string[]]$RepoUrlWithPat
 
   )
 
@@ -603,9 +603,15 @@ function Copy-DevOpsWikiToDocFx {
   }
 "@
   Set-Content -Path (Join-Path $OutputDir $DocFxJsonFilename) -Value $DocFxJson
-  Write-Host "Line 607"
-   if ($RepoUrlWithPat -ne "") {
+  Write-Host "Attempt not equal to null"
+  Write-Host "type: $RepoUrlWithPat"
+  Write-Host "type: $env:RepoUrlWithPat"
+  Write-Host "attempt new"
+
+   if ($env:RepoUrlWithPat ) {
 	   Write-Host "Inside if statement"
+	   Write-Host "5"
+
     Process-Repository -repoUrlWithPat $env:RepoUrlWithPat
 	}
 	Write-Host "Outside if statement"
