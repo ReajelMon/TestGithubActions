@@ -566,7 +566,7 @@ function Copy-DevOpsWikiToDocFx {
 
   # create docfx.json
   $TemplateDirJson = ConvertTo-Json $DocFxTemplateDirName
-
+  Write-Host "Line under templatedirjson"
   $DocFxJson = @"
 {
     "build": {
@@ -602,14 +602,13 @@ function Copy-DevOpsWikiToDocFx {
     }
   }
 "@
-
-  Set-Content -Path (Join-Path $OutputDir $DocFxJsonFilename) -Value $DocFxJson 
-   if ($RepoUrlWithPat -ne $null -and $RepoUrlWithPat -ne "") {
+  Set-Content -Path (Join-Path $OutputDir $DocFxJsonFilename) -Value $DocFxJson
+  Write-Host "Line 607"
+   if ($RepoUrlWithPat -ne "") {
+	   Write-Host "Inside if statement"
     Process-Repository -repoUrlWithPat $env:RepoUrlWithPat
 	}
-
-  
-
+	Write-Host "Outside if statement"
 }
 
 function Process-Repository {
