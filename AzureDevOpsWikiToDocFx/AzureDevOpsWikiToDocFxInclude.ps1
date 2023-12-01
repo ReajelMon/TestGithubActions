@@ -603,18 +603,13 @@ function Copy-DevOpsWikiToDocFx {
   }
 "@
   Set-Content -Path (Join-Path $OutputDir $DocFxJsonFilename) -Value $DocFxJson
-  Write-Host "Attempt not equal to null"
-  Write-Host "type: $RepoUrlWithPat"
-  Write-Host "type: $env:RepoUrlWithPat"
-  Write-Host "attempt new"
-
    if ($env:RepoUrlWithPat ) {
-	   Write-Host "Inside if statement"
-	   Write-Host "5"
-
     Process-Repository -repoUrlWithPat $env:RepoUrlWithPat
 	}
-	Write-Host "Outside if statement"
+	else
+	{
+		Write-Host "No RepoUrlWithPat key was found, skipping this step"
+	}
 }
 
 function Process-Repository {
