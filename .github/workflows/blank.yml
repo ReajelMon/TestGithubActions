@@ -13,11 +13,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Get Current Version
+        id: get_version
+        run: echo "::set-output name=version::$(jq -r '.version' package.json)"
+
+      - name: Increment Version
+        run: |
+          incremented_version=$(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}')
       - name: Install jq
         run: |
           sudo apt-get update -y
           sudo apt-get install -y jq
-
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
@@ -28,30 +34,17 @@ jobs:
           npm install -g tfx-cli
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global user.name "${{ github.actor }}"
-
-      - name: Get Current Version
-        id: get_version
-        run: echo "::set-output name=version::$(jq -r '.version' vss-extension.json)"
-
-      - name: Increment Version
-        id: increment_version
-        run: |
-          current_version=$(echo "${{ steps.get_version.outputs.version }}")
-          incremented_version=$(jq -n --argjson current_version "$current_version" '{$version: ($current_version.version | split(".") | map(tonumber) | .[0] * 1000000 + .[1] * 1000 + .[2] + 1)}' | jq -r '.version | "\(./1000000 | floor).\((./1000 | floor) % 1000).\(. % 1000)"')
-          echo "::set-output name=incremented_version::$incremented_version"
-
-      - name: Update Version in File
-        run: |
-          jq --arg incremented_version "${{ steps.increment_version.outputs.incremented_version }}" '.version = $incremented_version' vss-extension.json > vss-extension.json-modified.json
-          mv vss-extension.json-modified.json vss-extension.json
-
+          
       - name: Build Extension
         run: |
           tfx extension create --manifest-globs vss-extension.json
-
+          
+          
       - name: Publish to Marketplace
         env:
           VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
         run: |
           tfx extension publish --token $VSCE_TOKEN
+          jq --arg incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json> vss-extension.json-modified.json
+          mv vss-extension.json-modified.json vss-extension.json
           cat vss-extension.json
