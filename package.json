@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "AzureDevOpsWikiToDocFx-dev-test",
-  "name": "FoodHungry",
+  "name": "AzureDevOpsWikiToDocFx Test Version",
   "version": "5.0.63",
   "publisher": "MontaMdUpdate",
   "targets": [
