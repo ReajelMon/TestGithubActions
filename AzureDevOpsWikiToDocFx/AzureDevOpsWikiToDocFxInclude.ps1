@@ -566,7 +566,6 @@ function Copy-DevOpsWikiToDocFx {
 
   # create docfx.json
   $TemplateDirJson = ConvertTo-Json $DocFxTemplateDirName
-  Write-Host "Line under templatedirjson"
   $DocFxJson = @"
 {
     "build": {
