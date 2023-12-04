@@ -31,16 +31,17 @@ jobs:
       - name: Build Extension
         run: |
           tfx extension create --manifest-globs vss-extension.json
-
+          
+      - name: Get Current Version
+        id: get_version
+        run: echo "::set-output name=version::$(jq -r '.version' package.json)"
+        
       - name: Publish to Marketplace
         env:
           VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
         run: |
           tfx extension publish --token $VSCE_TOKEN
 
-      - name: Get Current Version
-        id: get_version
-        run: echo "::set-output name=version::$(jq -r '.version' package.json)"
 
       - name: Increment Version
         run: |
