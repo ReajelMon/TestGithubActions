@@ -17,10 +17,21 @@ jobs:
         id: get_version
         run: echo "::set-output name=version::$(jq -r '.version' package.json)"
 
-      - name: Increment Version
+      - name: Increment Version and Update vss-extension.json
         run: |
-          incremented_version=$(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}')
-          incremented_version=$((incremented_version + 1))
+          current_version="${{ steps.get_version.outputs.version }}"
+          incremented_version=$(awk -F. -v OFS=. '{++$3; print}' <<< "$current_version")
+      
+          # Update the version in the vss-extension.json file
+          jq --arg incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json > vss-extension.json-modified.json
+          mv vss-extension.json-modified.json vss-extension.json
+      
+          # Display the updated vss-extension.json file for verification
+          cat vss-extension.json
+      
+          # Set the incremented version as an output variable
+          echo "::set-output name=version::$incremented_version"
+
 
       - name: Install jq
         run: |
