@@ -17,18 +17,6 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y jq
-
-      - name: Get Current Version
-        id: get_version
-        run: echo "::set-output name=version::$(jq -r '.version' package.json)"
-
-      - name: Increment Version
-        run: |
-          incremented_version=$(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}')
-          jq --arg incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json> vss-extension.json-modified.json
-          mv vss-extension.json-modified.json vss-extension.json
-          cat vss-extension.json
-
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
@@ -49,3 +37,14 @@ jobs:
           VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
         run: |
           tfx extension publish --token $VSCE_TOKEN
+
+      - name: Get Current Version
+        id: get_version
+        run: echo "::set-output name=version::$(jq -r '.version' package.json)"
+
+      - name: Increment Version
+        run: |
+          incremented_version=$(echo "${{ steps.get_version.outputs.version }}" | awk -F. '{print $1"."$2"."$3+1}')
+          jq --arg incremented_version "$incremented_version" '.version = $incremented_version' vss-extension.json> vss-extension.json-modified.json
+          mv vss-extension.json-modified.json vss-extension.json
+          cat vss-extension.json
