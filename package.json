@@ -4,7 +4,7 @@
   "name": "AzureDevOpsWikiToDocFx Test Version",
   "version": "5.0.65",
   "publisher": "MontaMdUpdate",
-  "targets": [
+  "targets": [ 
     {
       "id": "Microsoft.VisualStudio.Services"
     }
