@@ -54,24 +54,6 @@ jobs:
           git push origin main
       
           echo "::set-output name=version::$incremented_version"
-
-
-
-      - name: Install jq
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y jq
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-
-      - name: Install tfx-cli
-        run: |
-          npm install -g tfx-cli
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git config --global user.name "${{ github.actor }}"
           
       - name: Build Extension
         run: |
