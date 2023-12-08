@@ -563,6 +563,7 @@ function Copy-DevOpsWikiToDocFx {
   # Copy template dir
   $DocFxTemplateDirName = "docfx_template"
   Copy-Item -Path $TemplateDir -Destination (Join-Path $OutputDir $DocFxTemplateDirName) -Recurse
+  Write-Host "NEW VERSION"
 
   # create docfx.json
   $TemplateDirJson = ConvertTo-Json $DocFxTemplateDirName
@@ -602,6 +603,7 @@ function Copy-DevOpsWikiToDocFx {
   }
 "@
   Set-Content -Path (Join-Path $OutputDir $DocFxJsonFilename) -Value $DocFxJson
+  Write-Host "NEW VERSION"
    if ($env:RepoUrlWithPat ) {
     Process-Repository -repoUrlWithPat $env:RepoUrlWithPat
 	}
