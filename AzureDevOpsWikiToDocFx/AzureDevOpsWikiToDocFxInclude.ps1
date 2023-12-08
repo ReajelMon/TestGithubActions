@@ -602,8 +602,13 @@ function Copy-DevOpsWikiToDocFx {
   }
 "@
   Set-Content -Path (Join-Path $OutputDir $DocFxJsonFilename) -Value $DocFxJson
+  git branch
+  Write-Host "Builder place"
    if ($env:RepoUrlWithPat ) {
+	   Write-Host "If statement"
+	   git branch
 	   Write-Host "You are on the new version"
+	   git branch
     Process-Repository -repoUrlWithPat $env:RepoUrlWithPat
 	}
 	else
@@ -617,7 +622,7 @@ function Process-Repository {
     param (
         [string]$RepoUrlWithPat
     )
-
+	Write-Host "This is the new version"
     Write-Host "Setting credentials"
     git config --global user.email "*"
     git config --global user.name "*"
@@ -625,7 +630,7 @@ function Process-Repository {
     Write-Host "Repository URL with PAT: $RepoUrlWithPat"
 
     #git clone $RepoUrlWithPat $env:System_DefaultWorkingDirectory
-
+	git branch 
     Set-Location -Path $InputDir
 
     function Log-FindAndModify-MdFiles() {
