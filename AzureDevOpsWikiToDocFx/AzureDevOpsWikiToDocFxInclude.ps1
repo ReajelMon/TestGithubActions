@@ -634,7 +634,7 @@ function Process-Repository {
 
     #git clone $RepoUrlWithPat $env:System_DefaultWorkingDirectory
 	git branch 
-    Set-Location -Path $InputDir
+    Set-Location -Path $OutputDir
 
     function Log-FindAndModify-MdFiles() {
 
