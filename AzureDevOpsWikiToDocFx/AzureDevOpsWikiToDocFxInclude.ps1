@@ -670,11 +670,14 @@ function Process-Repository {
 
         git add .
         git commit -m "Success!"
+		git checkout Update_Files
+		git merge $env:BUILD_SOURCEVERSION
+		git merge --continue
     }
-	
-	git checkout Update_Files
-	git merge $env:BUILD_SOURCEVERSION
-	git merge --continue
+	git branch
+	#git checkout Update_Files
+	#git merge $env:BUILD_SOURCEVERSION
+	#git merge --continue
 	#git commit -m "Merge changes from SECOND_BRANCH into MAIN"
 	#git push origin Update_Files
 
