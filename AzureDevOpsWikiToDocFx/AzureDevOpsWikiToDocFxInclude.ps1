@@ -1,4 +1,4 @@
-# Setups
+# Setup
 
 $ErrorActionPreference = "Stop" # Stop on first error
 
@@ -602,6 +602,8 @@ function Copy-DevOpsWikiToDocFx {
   }
 "@
   Set-Content -Path (Join-Path $OutputDir $DocFxJsonFilename) -Value $DocFxJson
+  $currentLocations = Get-Location
+  Write-Host "Line 606 Current location: $($currentLocations.Path)"
   git branch
   Write-Host "Builder place"
    if ($env:RepoUrlWithPat ) {
@@ -629,13 +631,14 @@ function Process-Repository {
 
     Write-Host "Repository URL with PAT: $RepoUrlWithPat"
 	$currentLocation = Get-Location
-	Write-Host "Current location: $($currentLocation.Path)"
+	Write-Host " line 634 Current normal location: $($currentLocation.Path)"
 
 
     #git clone $RepoUrlWithPat $env:System_DefaultWorkingDirectory
 	git branch 
     Set-Location -Path $OutputDir
-
+	$Outputdirlocation = Get-Location
+	Write-Host " Line 641 You are currently in the outputdirlocation named $(Outputdirlocation.Path)"
     function Log-FindAndModify-MdFiles() {
 
         git fetch
