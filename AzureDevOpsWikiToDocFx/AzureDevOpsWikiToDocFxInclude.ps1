@@ -1,4 +1,4 @@
-# Setup
+# Setups
 
 $ErrorActionPreference = "Stop" # Stop on first error
 
