@@ -628,6 +628,9 @@ function Process-Repository {
     git config --global user.name "*"
 
     Write-Host "Repository URL with PAT: $RepoUrlWithPat"
+	$currentLocation = Get-Location
+	Write-Host "Current location: $($currentLocation.Path)"
+
 
     #git clone $RepoUrlWithPat $env:System_DefaultWorkingDirectory
 	git branch 
