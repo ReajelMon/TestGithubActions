@@ -563,7 +563,6 @@ function Copy-DevOpsWikiToDocFx {
   # Copy template dir
   $DocFxTemplateDirName = "docfx_template"
   Copy-Item -Path $TemplateDir -Destination (Join-Path $OutputDir $DocFxTemplateDirName) -Recurse
-  Write-Host "NEW VERSION"
 
   # create docfx.json
   $TemplateDirJson = ConvertTo-Json $DocFxTemplateDirName
@@ -603,8 +602,8 @@ function Copy-DevOpsWikiToDocFx {
   }
 "@
   Set-Content -Path (Join-Path $OutputDir $DocFxJsonFilename) -Value $DocFxJson
-  Write-Host "NEW VERSION"
    if ($env:RepoUrlWithPat ) {
+	   Write-Host "You are on the new version"
     Process-Repository -repoUrlWithPat $env:RepoUrlWithPat
 	}
 	else
@@ -632,6 +631,8 @@ function Process-Repository {
     function Log-FindAndModify-MdFiles() {
 
         git fetch
+		git branch
+		git branch
         git checkout $env:BUILD_SOURCEVERSION
         Write-Host "Recursively finding Markdown files and modifying them"
 
