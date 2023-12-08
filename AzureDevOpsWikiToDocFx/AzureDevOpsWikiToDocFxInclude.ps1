@@ -645,6 +645,7 @@ function Process-Repository {
 		git branch
 		git branch
         git checkout $env:BUILD_SOURCEVERSION
+		git branch
         Write-Host "Recursively finding Markdown files and modifying them"
 
         $markdownFiles = Get-ChildItem -Path . -Filter *.md -File -Recurse
@@ -670,6 +671,14 @@ function Process-Repository {
         git add .
         git commit -m "Success!"
     }
+	
+	git checkout Update_Files
+	git merge $env:BUILD_SOURCEVERSION
+	git merge --continue
+	#git commit -m "Merge changes from SECOND_BRANCH into MAIN"
+	#git push origin Update_Files
+
+
 
     Log-FindAndModify-MdFiles
 }
