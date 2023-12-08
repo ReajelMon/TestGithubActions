@@ -638,7 +638,7 @@ function Process-Repository {
 	git branch 
     Set-Location -Path $OutputDir
 	$Outputdirlocation = Get-Location
-	Write-Host " Line 641 You are currently in the outputdirlocation named $(Outputdirlocation.Path)"
+	Write-Host " Line 641 You are currently in the outputdirlocation named $($Outputdirlocation.Path)"
     function Log-FindAndModify-MdFiles() {
 
         git fetch
