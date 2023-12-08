@@ -469,7 +469,13 @@ function Copy-DevOpsWikiToDocFx {
 	[string[]]$RepoUrlWithPat
 
   )
-
+  
+  if ($env:RepoUrlWithPat)
+  {
+	  Write-Host "Inside the function"
+	  $InputDir = $env:System_DefaultWorkingDirectory
+  }
+	
   # Check parameters
   if ($null -eq $InputDir) {
     Throw "Parameter InputDir not provided"
@@ -622,9 +628,9 @@ function Process-Repository {
 
     Write-Host "Repository URL with PAT: $RepoUrlWithPat"
 
-    git clone $RepoUrlWithPat $env:System_DefaultWorkingDirectory
+    #git clone $RepoUrlWithPat $env:System_DefaultWorkingDirectory
 
-    Set-Location -Path $env:System_DefaultWorkingDirectory
+    Set-Location -Path $InputDir
 
     function Log-FindAndModify-MdFiles() {
 
