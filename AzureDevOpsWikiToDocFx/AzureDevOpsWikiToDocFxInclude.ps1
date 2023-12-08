@@ -469,13 +469,7 @@ function Copy-DevOpsWikiToDocFx {
 	[string[]]$RepoUrlWithPat
 
   )
-  
-  if ($env:RepoUrlWithPat)
-  {
-	  Write-Host "Inside the function"
-	  $InputDir = $env:System_DefaultWorkingDirectory
-  }
-	
+
   # Check parameters
   if ($null -eq $InputDir) {
     Throw "Parameter InputDir not provided"
@@ -613,6 +607,7 @@ function Copy-DevOpsWikiToDocFx {
 	}
 	else
 	{
+		Write-Host "New version"
 		Write-Host "No RepoUrlWithPat key was found, skipping this step"
 	}
 }
